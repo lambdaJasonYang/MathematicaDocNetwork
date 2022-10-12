@@ -56,7 +56,7 @@ jobs:
            git config -l
            ls
            touch README.md
-           echo "# [Landing Page](https://userjy.github.io/ExportNextJSsample)  \r\n hi" >> README.md
+           echo "# [Landing Page](https://userjy.github.io/MathematicaDocNetwork)  \r\n hi" >> README.md
            git config --global user.name "GithubUser"
            git config --global user.email "myaction.users.noreply.github.com"
            git add .
