@@ -39,15 +39,15 @@ jobs:
         src_branch: main
         dst_path: /.
         dst_owner: userJY
-        dst_repo_name: ExportNextJSsample
+        dst_repo_name: MathematicaDocNetwork
         dst_branch: main
         clean: true
 
     - name: heyguys
       uses: actions/checkout@v2
       with:
-        repository: userJY/ExportNextJSsample
-        path: ExportNextJSsample
+        repository: userJY/MathematicaDocNetwork
+        path: MathematicaDocNetwork
         ref: "main"
         token: ${{secrets.STUFF}}
         fetch-depth: 0
@@ -63,7 +63,7 @@ jobs:
            git commit -m 'up'
            git status
            git push -u origin HEAD
-      working-directory: ExportNextJSsample
+      working-directory: MathematicaDocNetwork
           
     # Runs a single command using the runners shell
     - name: Send greeting
