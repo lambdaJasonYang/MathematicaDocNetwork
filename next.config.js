@@ -11,8 +11,8 @@ module.exports = (phase, { defaultConfig }) => {
   return {
     /* config options for all phases except development here */
     reactStrictMode: true,
-    assetPrefix: isProd ? "/WolframDocGraphSSG" : undefined, //static assets are in the /out folder
-    basePath: isProd ? "/WolframDocGraphSSG" : undefined,
+    assetPrefix: isProd ? "/MathematicaDocNetwork" : undefined, //static assets are in the /out folder
+    basePath: isProd ? "/MathematicaDocNetwork" : undefined,
     experimental: {
       images: {
         unoptimized: true,
