@@ -6,7 +6,7 @@ MUST change .env content `myEnv` when running locally because it affects the `as
 
 # SSR
 
-```bash
+```bash 
 npm run build
 npm run start
 ```
