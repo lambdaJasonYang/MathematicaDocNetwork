@@ -1,27 +1,56 @@
 import graphdata from '../assets/data.json'
 
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import "@react-sigma/core/lib/react-sigma.min.css";
 import { MultiDirectedGraph } from "graphology";
-import { SigmaContainer, useLoadGraph, ControlsContainer, SearchControl, } from "@react-sigma/core";
+import { SigmaContainer, useLoadGraph, ControlsContainer, SearchControl, useRegisterEvents, useSetSettings } from "@react-sigma/core";
 
 
 export const MultiGraph = () => {
   const MyGraph = () => {
+    const setSettings = useSetSettings();
+    const [hoveredNode, setHoveredNode] = useState(null);
+
     const loadGraph = useLoadGraph();
-    
+    const registerEvents = useRegisterEvents();
 
     useEffect(() => {
       // Create the graph
       const graph = new MultiDirectedGraph();
-    //   graph.addNode("A", { x: 0, y: 0, label: "Node A", size: 10 });
-    //   graph.addNode("B", { x: 1, y: 1, label: "Node B", size: 10 });
-    //   graph.addEdgeWithKey("rel1", "A", "B", { label: "REL_1" });
-    //   graph.addEdgeWithKey("rel2", "A", "B", { label: "REL_2" });
         graph.import(graphdata)
       loadGraph(graph);
-    }, [loadGraph]);
+      registerEvents({
+        clickNode: (event) => setHoveredNode(event.node),
+        clickStage: () => setHoveredNode(null),
+      });
+      setSettings({
+        nodeReducer: (node, data) => {
+          
+          const newData = { ...data, highlighted: data.highlighted || false };
+  
+          if (hoveredNode) {
+            if (node === hoveredNode || graph.neighbors(hoveredNode).includes(node)) {
+              newData.highlighted = true;
+            } else {
+              newData.color = "#E2E2E2";
+              newData.highlighted = false;
+            }
+          }
+          return newData;
+        },
+        edgeReducer: (edge, data) => {
+          
+          const newData = { ...data, hidden: false };
+  
+          if (hoveredNode && !graph.extremities(edge).includes(hoveredNode)) {
+            newData.hidden = true;
+          }
+          return newData;
+        },
+      },[hoveredNode, setSettings, graph]);
+    
+  }, [loadGraph,hoveredNode,registerEvents,setSettings]);
 
     return null;
   };
